@@ -15,17 +15,18 @@ function Chat() {
 		<div className="chat-container">
 			<div className="mensajes">
 				<Mensaje />
-				<div className="input-container">
+				<form className="input-container">
 					<input type="text" onChange={handleMessage} value={message} />
 					<button
-						onClick={() => {
+						onClick={(e) => {
+							e.preventDefault();
 							console.log(message);
 							sendMessage(username, message);
 							setMessage("");
 						}}>
 						Enviar
 					</button>
-				</div>
+				</form>
 			</div>
 		</div>
 	);
