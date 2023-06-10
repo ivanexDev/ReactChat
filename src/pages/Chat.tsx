@@ -56,7 +56,7 @@ function Chat() {
 							console.log(newmessage);
 							handleNewmessage();
 						}}>
-						Enviar
+						Send
 					</Button>
 				</form>
 			</div>
