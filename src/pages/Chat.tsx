@@ -1,34 +1,66 @@
-import Mensaje from "../components/Mensaje";
-import { sendMessage } from "../API/client";
+import { Button, TextField } from "@mui/material";
 import { useContext, useState } from "react";
+import Mensaje from "../components/Mensaje";
 import { DataContext } from "../context/data";
 import "./chat.css";
+import { sendMessage } from "../API/client";
+
 function Chat() {
 	const { username } = useContext(DataContext);
-	const [message, setMessage] = useState("");
+	const [newmessage, setNewmessage] = useState("");
 
 	const handleMessage = (e: any) => {
-		setMessage(e.target.value);
+		setNewmessage(e.target.value);
+	};
+
+	const handleNewmessage = () => {
+		if (newmessage != "") {
+			sendMessage(username, newmessage);
+			setNewmessage("");
+		}
+		return;
 	};
 
 	return (
-		<div className="chat-container">
-			<div className="mensajes">
+		<>
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "flex-end",
+					width: "90vw",
+					height: "100vh",
+				}}>
 				<Mensaje />
-				<form className="input-container">
-					<input type="text" onChange={handleMessage} value={message} />
-					<button
+				<form
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						width: "100%",
+						marginBottom: "20px",
+					}}>
+					<TextField
+						sx={{ width: "100%" }}
+						type="text"
+						onChange={(e) => {
+							handleMessage(e);
+						}}
+						value={newmessage}
+					/>
+					<Button
+						type="submit"
+						variant="contained"
+						color="primary"
 						onClick={(e) => {
 							e.preventDefault();
-							console.log(message);
-							sendMessage(username, message);
-							setMessage("");
+							console.log(newmessage);
+							handleNewmessage();
 						}}>
 						Enviar
-					</button>
+					</Button>
 				</form>
 			</div>
-		</div>
+		</>
 	);
 }
 

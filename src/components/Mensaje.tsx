@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { supabase } from "../API/client";
 import { DataContext } from "../context/data";
 
@@ -11,7 +11,7 @@ function Mensaje() {
 		console.log(messages);
 	}, [messages]);
 
-	const chat = supabase
+	supabase
 		.channel("custom-insert-channel")
 		.on(
 			"postgres_changes",
@@ -26,15 +26,30 @@ function Mensaje() {
 		)
 		.subscribe();
 
-	console.log(chat);
 	return (
 		<>
 			{messages.map((message: any) => {
 				const izqOder = message.username === username ? "end" : "";
+				const btnBgColor =
+					message.username === username ? "#1976d2" : "#7a7a7a";
 
 				return (
-					<div className="chat-text" style={{ alignSelf: `${izqOder}` }}>
-						<span>{message.username}: </span> {message.message}
+					<div
+						key={crypto.randomUUID()}
+						className="chat-text"
+						style={{
+							width: "fit-content",
+							backgroundColor: `${btnBgColor}`,
+							fontSize: "1.2rem",
+							padding: "15px",
+							margin: "10px",
+							color: "white",
+							borderRadius: "25px",
+							alignSelf: `${izqOder}`,
+						}}>
+						<span>{message.username}: </span>
+
+						{message.message}
 					</div>
 				);
 			})}

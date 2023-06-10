@@ -7,11 +7,6 @@ import { useState } from "react";
 function App() {
 	const [isIn, setIsIn] = useState(false);
 
-	// useEffect(() => {
-	// 	getMessage();
-	// 	updateChat();
-	// }, []);
-
 	const handleLogin = (answer: boolean, username: string) => {
 		if (username == "") {
 			console.log("nombre vacio");

@@ -1,6 +1,7 @@
-import { DataContext } from "../context/data";
+import { Button, TextField } from "@mui/material";
 import { useContext } from "react";
-import "./login.css";
+import { DataContext } from "../context/data";
+
 function Login({ handleLogin }: any) {
 	const { username, setUsername } = useContext(DataContext);
 
@@ -9,20 +10,32 @@ function Login({ handleLogin }: any) {
 	}
 
 	return (
-		<form action="" className="login-container">
-			<input
+		<form
+			style={{
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+			}}>
+			<TextField
+				id="outlined-basic"
+				label="Username"
+				variant="outlined"
 				value={username}
 				type="text"
-				placeholder="Username"
-				onChange={handleUsername}></input>
-			<button
+				onChange={handleUsername}
+			/>
+			<Button
+				sx={{ marginTop: "20px", width: "100%" }}
+				type="submit"
+				variant="contained"
+				color="primary"
 				onClick={(e) => {
 					e.preventDefault();
 					console.log(username);
 					handleLogin(true, username);
 				}}>
-				Entrar
-			</button>
+				Login
+			</Button>
 		</form>
 	);
 }

@@ -11,7 +11,7 @@ export let dataMessages = null;
 
 export async function sendMessage(name: string, mensaje: string) {
 	try {
-		const { data: chat, error } = await supabase
+		const { error } = await supabase
 			.from("chat")
 			.insert([
 				{
@@ -20,21 +20,20 @@ export async function sendMessage(name: string, mensaje: string) {
 				},
 			])
 			.single();
-		console.log(chat);
 		if (error) throw error;
 	} catch (error: any) {
 		alert(error.message);
 	}
 }
 
-export async function getMessage() {
-	try {
-		let { data: chat, error } = await supabase
-			.from("chat")
-			.select("username, message");
-		console.log(chat);
-		if (error) throw error;
-	} catch (error: any) {
-		alert(error.message);
-	}
-}
+// export async function getMessage() {
+// 	try {
+// 		let { data: chat, error } = await supabase
+// 			.from("chat")
+// 			.select("username, message");
+// 		console.log(chat);
+// 		if (error) throw error;
+// 	} catch (error: any) {
+// 		alert(error.message);
+// 	}
+// }
